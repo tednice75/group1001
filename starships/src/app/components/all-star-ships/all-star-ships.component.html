@@ -1,0 +1,23 @@
+<p>all-star-ships works!</p>
+<p>
+  <mat-form-field>
+    <mat-label>Filter by Manufacturer</mat-label>
+    <mat-select>
+      @for (manu of manufacturers; track manu) {
+        <mat-option [value]="manu">{{manu}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+<p>
+  @for (item of allShips; track item; let idx = $index){
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Starship: {{item.name}}</mat-card-title><br>
+        <mat-card-subtitle>{{item.manufacturer | ellipsis: 20}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <a mat-button routerLink="/starship">Learn More</a>
+      </mat-card-actions>
+    </mat-card>
+  }
+</p>
