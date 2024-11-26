@@ -4,5 +4,5 @@ import { AllStarShipsComponent } from './components/all-star-ships/all-star-ship
 
 export const routes: Routes = [
   { path: '', component: AllStarShipsComponent },
-  { path: 'starship', component: StarshipComponent }
+  { path: 'starship/:id', component: StarshipComponent }
 ];

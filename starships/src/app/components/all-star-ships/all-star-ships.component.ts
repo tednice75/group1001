@@ -5,9 +5,10 @@ import {MatCard, MatCardActions, MatCardHeader, MatCardSubtitle, MatCardTitle} f
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
-import {RouterLink} from "@angular/router";
-import {starship} from "../../interfaces/StarshipResponse";
+import {RouterLink, ActivatedRoute} from "@angular/router";
+import {Starship} from "../../interfaces/StarshipResponse";
 import {GetShipsService} from "../../services/api/getships.service";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-all-star-ships',
@@ -24,32 +25,38 @@ import {GetShipsService} from "../../services/api/getships.service";
         MatLabel,
         MatOption,
         MatSelect,
-        RouterLink
+        RouterLink,
+        ReactiveFormsModule
     ],
   templateUrl: './all-star-ships.component.html',
   styleUrl: './all-star-ships.component.scss'
 })
+
 export class AllStarShipsComponent {
-  allShips: starship[] = [];
+  allShips: Starship[] = [];
+  displayShips: Starship[] = [];
   manufacturers: string[] = [];
+  shipControl = new FormControl()
 
   constructor(private ship: GetShipsService) {
     this.ship.allStarShips.subscribe(e =>
     {
       this.allShips = e
+      this.displayShips = this.allShips
       this.setManufacturers(e)
     })
-
+  this.shipControl.valueChanges.subscribe(e => 
+    {
+      this.displayShips = this.allShips.filter(j => j.manufacturer === e)
+    })
   }
-
+  
   setManufacturers(arr: any[]){
     let results: any[] = []
     arr.forEach((e) => {
       results.push(e.manufacturer)
     })
     let a = new Set(results)
-    let b = [...a]
-    this.manufacturers = b;
-    console.log(this.allShips.filter(e => e === b[1]))
+    this.manufacturers = [...a];
   }
 }

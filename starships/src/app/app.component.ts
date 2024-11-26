@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {DatePipe, NgFor} from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import { GetShipsService } from './services/api/getships.service';
-import {starship} from "./interfaces/StarshipResponse";
+import {Starship} from "./interfaces/StarshipResponse";
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import {MatButtonModule} from '@angular/material/button';
@@ -11,6 +11,7 @@ import {EllipsisPipe} from "./pipes/ellipsis.pipe";
 import {MatFormField} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatInputModule} from '@angular/material/input';
+
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,7 @@ import {MatInputModule} from '@angular/material/input';
 })
 export class AppComponent {
 
-  allShips: starship[] = [];
+  allShips: Starship[] = [];
   manufacturers: string[] = [];
 
   constructor(private ship: GetShipsService) {

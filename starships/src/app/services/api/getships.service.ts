@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from "rxjs";
-import { starship, starshipResponse } from '../../interfaces/StarshipResponse'
+import { Starship, StarshipResponse } from '../../interfaces/StarshipResponse'
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetShipsService {
 
-  allStarShips = new Subject<starship[]>()
-  arrStarShips : starship[] = []
+  allStarShips = new Subject<Starship[]>()
+  arrStarShips : Starship[] = []
   temp: string[] = []
   url = 'https://swapi.dev/api/starships/'
 
   constructor(private http: HttpClient) {
-    this.http.get<starshipResponse>(this.url).subscribe(ship => {
+    this.http.get<StarshipResponse>(this.url).subscribe(ship => {
       let count = ship.count;
       let results = ship.results.length;
       let limit = Math.ceil(count/results) + 1;
       let page = 1;
       while(page < limit) {
-        this.http.get<starshipResponse>(this.url + '?page=' + page).subscribe(ships => {
+        this.http.get<StarshipResponse>(this.url + '?page=' + page).subscribe(ships => {
           this.arrStarShips.push(...ships.results)
         })
         page++
@@ -31,7 +31,7 @@ export class GetShipsService {
 
 }
 
-const mydata = [
+const mydata: Starship[] = [
   {
     "name": "Naboo star skiff",
     "model": "J-type star skiff",
