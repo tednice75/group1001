@@ -1,32 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from "rxjs";
-import { Starship, StarshipResponse } from '../../interfaces/StarshipResponse'
+import { BehaviorSubject, Subject } from "rxjs";
+import { Starship, StarshipResponse } from '../../interfaces/StarshipResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetShipsService {
 
-  allStarShips = new Subject<Starship[]>()
-  arrStarShips : Starship[] = []
-  temp: string[] = []
+  allStarShips = new BehaviorSubject<Starship[]>(mydata)
   url = 'https://swapi.dev/api/starships/'
 
   constructor(private http: HttpClient) {
-    this.http.get<StarshipResponse>(this.url).subscribe(ship => {
-      let count = ship.count;
-      let results = ship.results.length;
-      let limit = Math.ceil(count/results) + 1;
-      let page = 1;
-      while(page < limit) {
-        this.http.get<StarshipResponse>(this.url + '?page=' + page).subscribe(ships => {
-          this.arrStarShips.push(...ships.results)
-        })
-        page++
-      }
-      this.allStarShips.next(mydata)
-    })
+
+    // this.http.get<StarshipResponse>(this.url).subscribe(ship => {
+    //   let count = ship.count;
+    //   let results = ship.results.length;
+    //   let limit = Math.ceil(count/results) + 1;
+    //   let page = 1;
+    //   while(page < limit) {
+    //     this.http.get<StarshipResponse>(this.url + '?page=' + page).subscribe(ships => {
+    //       this.arrStarShips.push(...ships.results)
+    //     })
+    //     page++
+    //   }
+    //   this.allStarShips.next(mydata)
+    // })
+
+    this.allStarShips.next(mydata)
   }
 
 }

@@ -47,12 +47,16 @@ export class AllStarShipsComponent {
     })
   this.shipControl.valueChanges.subscribe(e => 
     {
-      this.displayShips = this.allShips.filter(j => j.manufacturer === e)
+      if(e === "Show All") {
+        this.displayShips = this.allShips
+      } else {
+        this.displayShips = this.allShips.filter(j => j.manufacturer === e)
+      }
     })
   }
   
   setManufacturers(arr: any[]){
-    let results: any[] = []
+    let results: any[] = ["Show All"]
     arr.forEach((e) => {
       results.push(e.manufacturer)
     })

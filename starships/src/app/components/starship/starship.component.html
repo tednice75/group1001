@@ -2,21 +2,33 @@
 
   <ul>
     <li>MGLT: {{item.MGLT}}</li>
-    <li>Cargo Capacity {{item.cargo_capacity}}</li>
-    <li>{{item.consumables}}</li>
-    <li>{{item.cost_in_credits}}</li>
-    <li>{{item.created | date}}</li>
-    <li>{{item.crew}}</li>
-    <li>{{item.edited | date}}</li>
-    <li>{{item.films}}</li>
-    <li>{{item.hyperdrive_rating}}</li>
-    <li>{{item.length}}</li>
-    <li>{{item.max_atmosphering_speed}}</li>
-    <li>{{item.model}}</li>
-    <li>{{item.passengers}}</li>
-    <li>{{item.pilots}}</li>
-    <li>{{item.starship_class}}</li>
-    <li>{{item.url}}</li>
+    <li>Cargo Capacity: {{item.cargo_capacity}}</li>
+    <li>Consumables: {{item.consumables}}</li>
+    <li>Cost in Credits: {{item.cost_in_credits}}</li>
+    <li>Created: {{item.created | date}}</li>
+    <li>Crew: {{item.crew}}</li>
+    <li>Edited: {{item.edited | date}}</li>
+    <li>Films:</li>
+    <ul>
+      @for (film of item.films; track $index) {
+        <li>{{ film }}</li>
+        }
+    </ul>
+    <li>Hyper Drive Rating: {{item.hyperdrive_rating}}</li>
+    <li>Length: {{item.length}}</li>
+    <li>Atmosphering Speed: {{item.max_atmosphering_speed}}</li>
+    <li>Model: {{item.model}}</li>
+    <li>Passengers: {{item.passengers}}</li>
+    <li>Pilots:</li>
+    <ul>
+      @for (pilot of item.pilots; track $index) {
+        <li>{{ pilot }}</li>
+        } @empty {
+          <li>No pilot data</li>
+        }
+    </ul>
+    <li>Starship Class: {{item.starship_class}}</li>
+    <li>SWAPI API link: {{item.url}}</li>
   </ul>
 
 <a href="/">Return home</a>
